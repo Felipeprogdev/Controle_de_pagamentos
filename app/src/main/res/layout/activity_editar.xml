@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/dataDePagamento2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="21dp"
+        android:ems="10"
+        android:hint="data"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/confirm2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entrada2" />
+
+    <EditText
+        android:id="@+id/entrada2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Entrada"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/dataDePagamento2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parcelas2" />
+
+    <EditText
+        android:id="@+id/valorTotal2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Valor total"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/parcelas2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeDoCliente2" />
+
+    <EditText
+        android:id="@+id/nomeDoCliente2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="25dp"
+        android:ems="10"
+        android:hint="Cliente"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/valorTotal2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id" />
+
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="ID"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/nomeDoCliente2"
+        app:layout_constraintEnd_toEndOf="@+id/nomeDoCliente2"
+        app:layout_constraintStart_toStartOf="@+id/nomeDoCliente2"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/parcelas2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="22dp"
+        android:ems="10"
+        android:hint="Parcelas"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/entrada2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valorTotal2" />
+
+    <Button
+        android:id="@+id/confirm2"
+        android:layout_width="175dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="208dp"
+        android:onClick="Confirmar"
+        android:text="Confirmar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataDePagamento2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="9dp"
+        android:gravity="center"
+        android:text="Somente o ID é obrigatorio"
+        app:layout_constraintBottom_toTopOf="@+id/id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

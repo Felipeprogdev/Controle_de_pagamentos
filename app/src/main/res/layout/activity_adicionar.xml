@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/nomeDoCliente"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="22dp"
+        android:ems="10"
+        android:hint="Cliente"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/valorTotal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/valorTotal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="17dp"
+        android:ems="10"
+        android:hint="Valor total"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/parcelas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeDoCliente" />
+
+    <EditText
+        android:id="@+id/parcelas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="23dp"
+        android:ems="10"
+        android:hint="Parcelas"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/entrada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valorTotal" />
+
+    <EditText
+        android:id="@+id/entrada"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="29dp"
+        android:ems="10"
+        android:hint="Entrada"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/dataDePagamento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parcelas" />
+
+    <EditText
+        android:id="@+id/dataDePagamento"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="35dp"
+        android:ems="10"
+        android:hint="data"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entrada" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="251dp"
+        android:onClick="Confirmar"
+        android:text="Confirmar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataDePagamento" />
+</androidx.constraintlayout.widget.ConstraintLayout>
