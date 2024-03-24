@@ -1,16 +1,20 @@
 package com.example.controle_de_pagamentos;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+
 //Classe construtora
 public class Dados {
 
+    //Define cada item e seu tipo que será salvo no banco de dados
     int id;
     String cliente;
-    String valorTotal;
-    String parcela;
-    String entrada;
-    String valorRestante;
-    String data;
-
+    BigDecimal valorTotal;
+    BigDecimal parcela;
+    BigDecimal entrada;
+    BigDecimal valorRestante;
+    LocalDate data;
 
     //Construtor vazio de instancia
     public Dados(){
@@ -18,7 +22,7 @@ public class Dados {
     }
 
     //Construtor de update
-    public Dados(int _id, String _cliente, String _valorTotal, String _parcela, String _entrada, String _restante, String _data){
+    public Dados(int _id, String _cliente, BigDecimal _valorTotal, BigDecimal _parcela, BigDecimal _entrada, BigDecimal _restante, LocalDate _data){
         this.id = _id;
         this.cliente = _cliente;
         this.valorTotal = _valorTotal;
@@ -29,7 +33,7 @@ public class Dados {
     }
 
     //Construtor de cadastro (Insert)
-    public Dados(String _cliente, String _valorTotal, String _parcela, String _entrada, String _restante, String _data){
+    public Dados(String _cliente, BigDecimal _valorTotal, BigDecimal _parcela, BigDecimal _entrada, BigDecimal _restante, LocalDate _data){
         this.cliente = _cliente;
         this.valorTotal = _valorTotal;
         this.parcela = _parcela;
@@ -57,43 +61,43 @@ public class Dados {
         this.cliente = cliente;
     }
 
-    public String getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(String valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public String getParcela() {
+    public BigDecimal getParcela() {
         return parcela;
     }
 
-    public void setParcela(String parcela) {
+    public void setParcela(BigDecimal parcela) {
         this.parcela = parcela;
     }
 
-    public String getEntrada() {
+    public BigDecimal getEntrada() {
         return entrada;
     }
 
-    public void setEntrada(String entrada) {
+    public void setEntrada(BigDecimal entrada) {
         this.entrada = entrada;
     }
 
-    public String getValorRestante() {
+    public BigDecimal getValorRestante() {
         return valorRestante;
     }
 
-    public void setValorRestante(String valorRestante) {
+    public void setValorRestante(BigDecimal valorRestante) {
         this.valorRestante = valorRestante;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }

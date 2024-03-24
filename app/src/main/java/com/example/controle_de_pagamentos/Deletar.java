@@ -11,6 +11,7 @@ public class Deletar extends AppCompatActivity {
 
     EditText iD;
 
+    //para acessar o banco de dados
     BancoDados db = new BancoDados(this);
 
     @Override

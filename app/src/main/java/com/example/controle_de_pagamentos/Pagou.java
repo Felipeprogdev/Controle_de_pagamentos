@@ -7,9 +7,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+
 public class Pagou extends AppCompatActivity {
 
+    // Declaração das variáveis EditText para ID, valor e parcela
     EditText iD, editValor, edit_Parcela;
+
+    // Declaração de um objeto BancoDados para acessar o banco de dados
     BancoDados db = new BancoDados(this);
 
     @Override
@@ -17,93 +25,82 @@ public class Pagou extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagou_parcela);
 
-        // Isso é para linkar a variavel criada atras com o valor
+        // Vinculação das variáveis EditText com os campos correspondentes no layout
         iD = findViewById(R.id.id8);
-
-        // Isso é para linkar a variavel criada atras com o valor
         editValor = findViewById(R.id.valor5);
-
-        // Isso é para linkar a variavel criada atras com o valor
         edit_Parcela = findViewById(R.id.nova_parcela);
-
     }
 
+    // Método chamado quando o botão Pago é clicado
     public void Pago(View view){
         try {
+            // Conversão do ID digitado para um inteiro
             int ID = Integer.parseInt(iD.getText().toString());
 
+            // Criação de um novo objeto Dados e definição de seu ID
             Dados dados = new Dados();
             dados.setId(ID);
 
+            // Obtenção dos dados salvos para o ID digitado
             Dados save = db.selecionarDados(ID);
 
+            // Definição dos campos restantes do objeto Dados com os dados salvos
             dados.setCliente(save.getCliente());
             dados.setValorTotal(save.getValorTotal());
             dados.setEntrada(save.getEntrada());
             dados.setData(save.getData());
 
 
-            try {
-                String parcela = edit_Parcela.getText().toString();
-                double valor_Digitado = Double.parseDouble(editValor.getText().toString());
+            if (editValor.getText().toString().isEmpty()) {
+                BigDecimal novoVal = save.getValorRestante().divide(save.getParcela(), 2, RoundingMode.DOWN);
+                BigDecimal novoValor = save.getValorRestante().subtract(novoVal);
+                dados.setValorRestante(novoValor);
 
-                double calculo = Double.parseDouble(save.getValorRestante());
+                BigDecimal um = new BigDecimal(1);
+                BigDecimal subtracaoDeParcela = save.getParcela().subtract(um);
+                dados.setParcela(subtracaoDeParcela);
 
-                valor_Digitado = calculo - valor_Digitado;
+                // Atualiza os valores no objeto Dados
+                if (subtracaoDeParcela.compareTo(BigDecimal.ZERO) <= 0) {
 
+                    //Delete
+                    db.apagarDados(dados);
+                    Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
 
-                dados.setValorRestante(String.valueOf(valor_Digitado));
-                dados.setParcela(parcela);
-
-                if(valor_Digitado <= 0){
-                    Dados apaga = new Dados();
-                    apaga.setId(ID);
-                    db.apagarDados(apaga);
-                    Toast.makeText(Pagou.this, "A conta foi quitada", Toast.LENGTH_LONG).show();
                 }
                 else {
+
                     db.atualizarDados(dados);
-                    Toast.makeText(Pagou.this, "Novos valores adicionados", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Pagou.this, "Conta atualizada", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            else {
+                BigDecimal editValorText = new BigDecimal(editValor.getText().toString());
+                dados.setValorRestante(editValorText);
+
+
+                BigDecimal parcel = new BigDecimal(edit_Parcela.getText().toString());
+                dados.setParcela(parcel);
+
+                // Atualiza os valores no objeto Dados
+                if (parcel.compareTo(BigDecimal.ZERO) <= 0) {
+
+                    //Delete
+                    db.apagarDados(dados);
+                    Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
+
                 }
 
-
-
-            }catch (Exception e){
-                double calculo0 = Double.parseDouble(save.getValorRestante());
-
-                int parce = Integer.parseInt(save.getParcela());
-
-                double calcul1 = calculo0 / parce;
-
-                double calculo2 = calculo0 - calcul1;
-
-
-                parce = parce - 1;
-
-
-                dados.setValorRestante(String.valueOf(calculo2));
-                dados.setParcela(String.valueOf(parce));
-
-                if(parce <= 0){
-                    Dados apaga = new Dados();
-                    apaga.setId(ID);
-                    db.apagarDados(apaga);
-                    Toast.makeText(Pagou.this, "A conta foi quitada", Toast.LENGTH_LONG).show();
-                }
                 else {
                     db.atualizarDados(dados);
-                    Toast.makeText(Pagou.this, "A mensalidade foi paga", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Pagou.this, "Valores modificados e atualizados", Toast.LENGTH_LONG).show();
                 }
-
-
             }
 
 
         }catch (Exception e){
             Toast.makeText(Pagou.this,"Digitou algo errado", Toast.LENGTH_LONG).show();
-
-
         }
-
     }
 }
