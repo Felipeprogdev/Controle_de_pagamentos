@@ -75,6 +75,8 @@ public class Pagou extends AppCompatActivity {
                 }
             }
 
+            //Caso a pessoa seja paga com um valor diferente "geralmente acontece com que não
+            //trabalha com contratos
             else {
                 BigDecimal editValorText = new BigDecimal(editValor.getText().toString());
                 dados.setValorRestante(editValorText);
@@ -83,7 +85,7 @@ public class Pagou extends AppCompatActivity {
                 BigDecimal parcel = new BigDecimal(edit_Parcela.getText().toString());
                 dados.setParcela(parcel);
 
-                // Atualiza os valores no objeto Dados
+                //Caso a parcela fique em 0, a conta sera quitada
                 if (parcel.compareTo(BigDecimal.ZERO) <= 0) {
 
                     //Delete
