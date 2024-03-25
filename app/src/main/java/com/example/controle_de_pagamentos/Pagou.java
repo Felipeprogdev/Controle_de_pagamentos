@@ -1,5 +1,7 @@
 package com.example.controle_de_pagamentos;
 
+import com.example.controle_de_pagamentos.GerarECarregarPdf;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -31,6 +33,8 @@ public class Pagou extends AppCompatActivity {
         edit_Parcela = findViewById(R.id.nova_parcela);
     }
 
+
+
     // Método chamado quando o botão Pago é clicado
     public void Pago(View view){
         try {
@@ -50,7 +54,7 @@ public class Pagou extends AppCompatActivity {
             dados.setEntrada(save.getEntrada());
             dados.setData(save.getData());
 
-
+            //Verificar os campos digitados
             if (editValor.getText().toString().isEmpty()) {
                 BigDecimal novoVal = save.getValorRestante().divide(save.getParcela(), 2, RoundingMode.DOWN);
                 BigDecimal novoValor = save.getValorRestante().subtract(novoVal);
@@ -60,7 +64,7 @@ public class Pagou extends AppCompatActivity {
                 BigDecimal subtracaoDeParcela = save.getParcela().subtract(um);
                 dados.setParcela(subtracaoDeParcela);
 
-                // Atualiza os valores no objeto Dados
+                //Deleta o cliente que quitou a conta da lista
                 if (subtracaoDeParcela.compareTo(BigDecimal.ZERO) <= 0) {
 
                     //Delete
@@ -68,10 +72,15 @@ public class Pagou extends AppCompatActivity {
                     Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
 
                 }
-                else {
 
+                //Se não quitou, atualiza
+                else {
+                    GerarECarregarPdf.gerarPdf(save.getCliente(), novoVal, novoValor);
                     db.atualizarDados(dados);
                     Toast.makeText(Pagou.this, "Conta atualizada", Toast.LENGTH_LONG).show();
+
+
+
                 }
             }
 
@@ -91,6 +100,8 @@ public class Pagou extends AppCompatActivity {
                     //Delete
                     db.apagarDados(dados);
                     Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
+
+
 
                 }
 
