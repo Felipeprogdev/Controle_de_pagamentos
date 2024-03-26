@@ -22,12 +22,15 @@ import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 
 // Classe responsável por gerar e carregar o PDF
 public class GerarECarregarPdf {
 
     // Método para gerar o PDF
-    public static void gerarPdf(String nomeDoCliente, BigDecimal total,  BigDecimal valorPago, BigDecimal parcela, BigDecimal valorRestante, LocalDate data, LocalTime hora, Context context) {
+    public static void gerarPdf(int id, String nomeDoCliente, BigDecimal total, BigDecimal valorPago, BigDecimal parcela, BigDecimal valorRestante, LocalDate data, LocalTime hora, Context context) {
         // Cria um novo documento com as margens definidas
         Document document = new Document(PageSize.A4, 20, 20, 20, 20);
 
@@ -35,10 +38,24 @@ public class GerarECarregarPdf {
         File pdfFile = null;
 
         try {
+
+            // Id vira string para o nome do arquivo
+            String idString = String.valueOf(id);
+
+            //Hora vira uma string para o nome do arquivo
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmmss");
+            String horaString = hora.format(formatter);
+
+            LocalDateTime horas = LocalDateTime.now();
+            int segundos = horas.getSecond();
+
+            System.out.println("Segundos: " + segundos);
+
             // Define o diretório de downloads
             File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             // Cria um novo arquivo PDF no diretório de downloads
-            pdfFile = new File(downloadsDirectory, nomeDoCliente + "-" + data + ".pdf");
+            pdfFile = new File(downloadsDirectory, nomeDoCliente + "-" + data + "-"+
+                    horaString + "-" + segundos + "-" + idString + ".pdf");
 
             // Inicializa o PdfWriter com o documento e o arquivo de saída
             PdfWriter.getInstance(document, new FileOutputStream(pdfFile));

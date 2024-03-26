@@ -89,7 +89,7 @@ public class Pagou extends AppCompatActivity {
                 //Deleta o cliente que quitou a conta da lista
                 if (subtracaoDeParcela.compareTo(BigDecimal.ZERO) <= 0) {
 
-                    GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
+                    GerarECarregarPdf.gerarPdf(ID, save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
                             novaData, horario,this);
                     //Delete
                     db.apagarDados(dados);
@@ -100,7 +100,7 @@ public class Pagou extends AppCompatActivity {
                 //Se não quitou, atualiza
                 else {
 
-                    GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
+                    GerarECarregarPdf.gerarPdf(ID, save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
                             novaData, horario,this);
                     db.atualizarDados(dados);
                     Toast.makeText(Pagou.this, "Conta atualizada", Toast.LENGTH_LONG).show();
@@ -138,7 +138,7 @@ public class Pagou extends AppCompatActivity {
                     //Caso a parcela fique em 0, a conta sera quitada
                     if (parcel.compareTo(BigDecimal.ZERO) <= 0) {
 
-                        GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
+                        GerarECarregarPdf.gerarPdf(ID, save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
                                 novaData, horario,this);
                         //Delete
                         db.apagarDados(dados);
@@ -150,7 +150,7 @@ public class Pagou extends AppCompatActivity {
 
                     else {
 
-                        GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
+                        GerarECarregarPdf.gerarPdf(ID, save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
                             novaData, horario,this);
                         db.atualizarDados(dados);
                         Toast.makeText(Pagou.this, "Valores modificados e atualizados", Toast.LENGTH_LONG).show();
@@ -163,6 +163,15 @@ public class Pagou extends AppCompatActivity {
 
         }catch (Exception e){
             Toast.makeText(Pagou.this,"Digitou algo errado", Toast.LENGTH_LONG).show();
+        }
+        finally {
+            try {
+                // pausa a execução por 5 segundos
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                int a = 0;
+            }
+
         }
     }
 }
