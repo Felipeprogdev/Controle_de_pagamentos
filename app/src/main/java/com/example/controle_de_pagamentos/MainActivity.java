@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         // Isso é para linkar a variavel criada atras com a lista
         list1 = (ListView)findViewById(R.id.prestesAVencer);
 
+        texto1.setVisibility(View.INVISIBLE);
+        texto2.setVisibility(View.INVISIBLE);
+
         //Ao iniciar carregue a função prestesAVencer
         prestesAVencer();
 
@@ -72,12 +75,18 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
-        } else {
-            // Permission has already been granted
         }
 
-
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Chame aqui o método que carrega os dados na tabela
+        prestesAVencer();
+        vencidas();
+    }
+
 
 
     /*
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         //Está configurando o adapter para a ListView list.
         list1.setAdapter(adapter);
 
-        int a = 1;
+
         //
         for(Dados d : dados){
 
@@ -120,23 +129,19 @@ public class MainActivity extends AppCompatActivity {
             long diasParaVencimento = ChronoUnit.DAYS.between(hoje, dataVencimento);
 
             if(diasParaVencimento <= 5 && diasParaVencimento >= 0){
-                a = 0;
+
                 texto2.setVisibility(View.VISIBLE);
                 //está adicionando uma string formatada à arrayList. A string contém informações sobre um objeto
                 //d do tipo Dados, incluindo o ID, o cliente, o valor total, a parcela, a entrada,
                 //o valor restante e a data.
-                arrayList.add("ID: " + d.getId() + "\nCliente: " + d.getCliente() + "\nValor total: R$"
-                        + d.getValorTotal() + "\nParcela: " + d.getParcela() + "\nEntrada: R$" + d.getEntrada() +
-                        "\nValor restante: R$" + d.getValorRestante() + "\nData: " + d.getData());
+                arrayList.add("ID: " + d.getId());
 
 
                 //Este método é chamado para notificar o adapter que os dadossubjacentes foram
                 //alterados e qualquer View que estava baseada nesses dados agora deve ser atualizada.
                 adapter.notifyDataSetChanged();
             }
-            if (a == 1){
-                texto2.setVisibility(View.INVISIBLE);
-            }
+
         }
 
     }
@@ -159,35 +164,30 @@ public class MainActivity extends AppCompatActivity {
         list2.setAdapter(adapter);
 
         //
-        int a = 1;
+
         for(Dados d : dados){
-
-
 
             LocalDate dataVencimento = d.getData();
             LocalDate hoje = LocalDate.now();
 
-            long diasParaVencimento = ChronoUnit.DAYS.between(hoje, dataVencimento);
+            // Adiciona 30 dias à data de vencimento
+            LocalDate vencimentoMais30 = dataVencimento.plusDays(30);
 
-            if(diasParaVencimento < 0) {
-                a = 0;
+            // Verifica se hoje é depois de vencimentoMais30
+            if(hoje.isAfter(vencimentoMais30)) {
                 texto1.setVisibility(View.VISIBLE);
 
                 //está adicionando uma string formatada à arrayList. A string contém informações sobre um objeto
                 //d do tipo Dados, incluindo o ID, o cliente, o valor total, a parcela, a entrada,
                 //o valor restante e a data.
-                arrayList.add("ID: " + d.getId() + "\nCliente: " + d.getCliente() + "\nValor total: R$"
-                        + d.getValorTotal() + "\nParcela: " + d.getParcela() + "\nEntrada: R$" + d.getEntrada() +
-                        "\nValor restante: R$" + d.getValorRestante() + "\nData: " + d.getData());
+                arrayList.add("ID: " + d.getId());
 
 
                 //Este método é chamado para notificar o adapter que os dadossubjacentes foram
                 //alterados e qualquer View que estava baseada nesses dados agora deve ser atualizada.
                 adapter.notifyDataSetChanged();
             }
-            if (a == 1){
-                texto1.setVisibility(View.INVISIBLE);
-            }
+
 
         }
 

@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,8 +71,10 @@ public class Carregar extends AppCompatActivity {
             //d do tipo Dados, incluindo o ID, o cliente, o valor total, a parcela, a entrada,
             //o valor restante e a data.
             arrayList.add("ID: " + d.getId() + "\nCliente: " + d.getCliente() + "\nValor total: R$"
-                    + d.getValorTotal() + "\nParcela: " + d.getParcela() + "\nEntrada: R$" + d.getEntrada() +
-                    "\nValor restante: R$" + d.getValorRestante() + "\nData: " + d.getData());
+                    + d.getValorTotal().setScale(2, BigDecimal.ROUND_HALF_UP) + "\nParcela: " +
+                    d.getParcela() + "\nEntrada: R$" + d.getEntrada().setScale(2, BigDecimal.ROUND_HALF_UP) +
+                    "\nValor restante: R$" + d.getValorRestante().setScale(2, BigDecimal.ROUND_HALF_UP) +
+                    "\nData: " + d.getData());
 
 
             //Este método é chamado para notificar o adapter que os dadossubjacentes foram

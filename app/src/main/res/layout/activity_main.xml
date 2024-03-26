@@ -8,25 +8,25 @@
 
     <ListView
         android:id="@+id/prestesAVencer"
-        android:layout_width="0dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="41dp"
+        android:layout_width="331dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="82dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pag" />
 
     <ListView
         android:id="@+id/vencidas"
         android:layout_width="0dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="62dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:layout_height="124dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="59dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <Button
         android:id="@+id/adicionar"
@@ -87,24 +87,24 @@
         android:id="@+id/textView2"
         android:layout_width="178dp"
         android:layout_height="37dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginBottom="363dp"
-        android:text="Vencidas"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="222dp"
+        android:text="Vencidas:"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="0dp"
+        android:layout_width="179dp"
         android:layout_height="37dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="67dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="27dp"
         android:text="Faturas prestes a vencer:"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/vencidas"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/vencidas"
-        app:layout_constraintTop_toTopOf="@+id/pag" />
+        app:layout_constraintBottom_toTopOf="@+id/prestesAVencer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

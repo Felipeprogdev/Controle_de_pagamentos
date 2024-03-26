@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import java.time.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -52,7 +52,29 @@ public class Pagou extends AppCompatActivity {
             dados.setCliente(save.getCliente());
             dados.setValorTotal(save.getValorTotal());
             dados.setEntrada(save.getEntrada());
-            dados.setData(save.getData());
+
+            // Adiciona 1 mês à data existente
+            LocalDate novaDat = save.getData().plusMonths(1);
+
+
+            LocalDate hoje = LocalDate.now();
+            int dia = hoje.getDayOfMonth();
+            int mes = hoje.getMonthValue();
+            int ano = hoje.getYear();
+            int hora = 18;
+            int minuto = 48;
+
+            LocalTime horario = LocalTime.of(hora, minuto);
+
+            LocalDate novaData = LocalDate.of(ano, mes, dia);
+
+            // Se o mês da nova data é janeiro, então a data original era dezembro, então adiciona 1 ano
+            if (novaDat.getMonth() == Month.JANUARY) {
+                novaDat = novaDat.plusYears(1);
+            }
+
+
+            dados.setData(novaDat);
 
             //Verificar os campos digitados
             if (editValor.getText().toString().isEmpty()) {
@@ -67,6 +89,8 @@ public class Pagou extends AppCompatActivity {
                 //Deleta o cliente que quitou a conta da lista
                 if (subtracaoDeParcela.compareTo(BigDecimal.ZERO) <= 0) {
 
+                    GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
+                            novaData, horario,this);
                     //Delete
                     db.apagarDados(dados);
                     Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
@@ -75,7 +99,9 @@ public class Pagou extends AppCompatActivity {
 
                 //Se não quitou, atualiza
                 else {
-                    GerarECarregarPdf.gerarPdf(save.getCliente(), novoVal, novoValor);
+
+                    GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), novoValor,
+                            novaData, horario,this);
                     db.atualizarDados(dados);
                     Toast.makeText(Pagou.this, "Conta atualizada", Toast.LENGTH_LONG).show();
 
@@ -87,28 +113,51 @@ public class Pagou extends AppCompatActivity {
             //Caso a pessoa seja paga com um valor diferente "geralmente acontece com que não
             //trabalha com contratos
             else {
+                //Pega o que foi digitado em editValor que é o que falta para pagar
                 BigDecimal editValorText = new BigDecimal(editValor.getText().toString());
-                dados.setValorRestante(editValorText);
 
+                //Pega o valor restante atual
+                BigDecimal valor1 = save.getValorRestante();
 
-                BigDecimal parcel = new BigDecimal(edit_Parcela.getText().toString());
-                dados.setParcela(parcel);
-
-                //Caso a parcela fique em 0, a conta sera quitada
-                if (parcel.compareTo(BigDecimal.ZERO) <= 0) {
-
-                    //Delete
-                    db.apagarDados(dados);
-                    Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
-
-
-
+                //Compara se o valor digitado é maior que o atual
+                if (editValorText.compareTo(valor1) > 0) {
+                    Toast.makeText(Pagou.this,"Se for adicionar um valor maior, coloqueo em editar", Toast.LENGTH_LONG).show();
                 }
 
                 else {
-                    db.atualizarDados(dados);
-                    Toast.makeText(Pagou.this, "Valores modificados e atualizados", Toast.LENGTH_LONG).show();
-                }
+                    //Pega o valor pago da fatura
+                    BigDecimal novoVal = valor1.subtract(editValorText);
+
+                    //Seta o valor em dados
+                    dados.setValorRestante(editValorText);
+                    //Pega o que foi digitado em edit_Parcela
+                    BigDecimal parcel = new BigDecimal(edit_Parcela.getText().toString());
+                    //Seta o valor em parcel
+                    dados.setParcela(parcel);
+
+                    //Caso a parcela fique em 0, a conta sera quitada
+                    if (parcel.compareTo(BigDecimal.ZERO) <= 0) {
+
+                        GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
+                                novaData, horario,this);
+                        //Delete
+                        db.apagarDados(dados);
+                        Toast.makeText(Pagou.this, "Conta quitada", Toast.LENGTH_LONG).show();
+
+
+
+                    }
+
+                    else {
+
+                        GerarECarregarPdf.gerarPdf(save.getCliente(), save.getValorTotal(), novoVal, save.getParcela(), editValorText,
+                            novaData, horario,this);
+                        db.atualizarDados(dados);
+                        Toast.makeText(Pagou.this, "Valores modificados e atualizados", Toast.LENGTH_LONG).show();
+                    }
+                    }
+
+
             }
 
 
