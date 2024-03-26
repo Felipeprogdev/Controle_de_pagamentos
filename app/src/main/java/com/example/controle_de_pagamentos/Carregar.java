@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.annotation.ArrayRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Carregar extends AppCompatActivity {
         setContentView(R.layout.activity_carregar);
 
         // Isso é para linkar a variavel criada atras com a lista
-        list = (ListView)findViewById(R.id.lista);
+        list = (ListView)findViewById(R.id.faturas);
 
         //Ao iniciar carregue a função listarDados
         listarDados();
@@ -47,6 +46,8 @@ public class Carregar extends AppCompatActivity {
                 dados.getEntrada() + "Data" + dados.getData(), Toast.LENGTH_LONG).show();
          */
     }
+
+    //Carrega tabela de faturas
     public void listarDados(){
 
         //Está chamando o método listaTodos() da instância db da classe
